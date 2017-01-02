@@ -1,0 +1,47 @@
+<div>
+	<h3>TEST GET JSON</h3>
+	<div *ngIf="getData">
+		<form name="form" (ngSubmit)="f.form.valid && update()" #f="ngForm" novalidate>
+			<label for="id">ID: </label> {{model.id}}
+			<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !userId.valid }">
+				<label for="userId">userId</label>
+				<input type="text" class="form-control" name="userId" [(ngModel)]="model.userId" placeholder="userId" #userId="ngModel" required />
+			</div>
+			<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !userId.valid }">
+				<label for="title">title</label>
+				<input type="text" class="form-control" name="title" [(ngModel)]="model.title" placeholder="title" #title="ngModel" required />
+			</div>
+			<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !userId.valid }">
+				<label for="body">body</label>
+				<input type="text" class="form-control" name="body" [(ngModel)]="model.body" placeholder="body"#body="ngModel" required />
+			</div>
+			<div class="form-group">
+				<button [disabled]="loading" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
+	</div>
+	<table *ngIf="results" border="1">
+		<thead>
+			<tr>
+				<th>User ID</th>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Body</th>
+				<th>수정</th>
+				<th>삭제</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let p of results; let i=index">
+				<td>{{p.userId}}</td>
+				<td>{{p.id}}</td>
+				<td>{{p.title}}</td>
+				<td>{{p.body}}</td>
+				<td><button class="btn btn-primary" (click)="getPost(p.id); $event.stopPropagation()">수정</button></td>
+				<td><button class="btn btn-danger" (click)="delete(p); $event.stopPropagation()">삭제</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<h3>TEST POST JSON</h3>
+	<app-json-post></app-json-post>
+</div>
